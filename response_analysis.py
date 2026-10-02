@@ -1,7 +1,9 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+MAX_TOKENS = 200 # can use up to 32768 per message  
+
 class Qwen:
-    def __init__(self, model_name, persona_file):
+    def __init__(self, model_name: str, persona_file: str) -> str:
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForCausalLM.from_pretrained(model_name)
 
@@ -24,7 +26,7 @@ class Qwen:
 
         # Generates the response
         inputs = self.tokenizer(text, return_tensors="pt")
-        response_ids = self.model.generate(**inputs, max_new_tokens=32768)[0][len(inputs.input_ids[0]):].tolist()
+        response_ids = self.model.generate(**inputs, max_new_tokens=MAX_TOKENS)[0][len(inputs.input_ids[0]):].tolist()
         response = self.tokenizer.decode(response_ids, skip_special_tokens=True)
 
         # Update history - with AIs response 
