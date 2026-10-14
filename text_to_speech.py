@@ -10,7 +10,7 @@ REF_AUDIO = "./voice_references/New_Zealand_Accent_Slang_onevoice.wav"
 REF_TEXT = "I think we talk alright eh, I think their slow, ehahahaha, rather than we talk to fast, I think they think to slow"
 
 # Location of generated audio wave file 
-OUTPUT_FILE = "output_voice_clone.wav"
+OUTPUT_FILE = "./caller_audio_output/output_voice_clone.wav"
 
 class SpeechOutput:
     def __init__(self, model_name):

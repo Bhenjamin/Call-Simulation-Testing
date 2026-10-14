@@ -2,7 +2,7 @@ import time
 from ollama import chat
 from ollama import ChatResponse
 
-MAX_TOKENS = 100 # can use up to 32768 per message  
+MAX_TOKENS = 50 # can use up to 32768 per message  
 
 class ResponseAnalysis:
     def __init__(self, model_name: str, persona_file: str):

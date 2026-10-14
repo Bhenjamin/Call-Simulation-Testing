@@ -3,6 +3,9 @@ from faster_whisper import WhisperModel
 
 AUDIO_FILEPATH = "./user_audio/audio_input.wav" 
 
+# Candidate transcriptions tried per step: higher is more accurate but slower (1 = fastest)
+BEAM_SIZE = 1
+
 class SpeechTranscription:
 
     def __init__ (self, model_name: str):
@@ -24,10 +27,8 @@ class SpeechTranscription:
         with open(AUDIO_FILEPATH, "wb") as f:
             f.write(audio.get_wav_data())
         
-
-        segments, info = self.model.transcribe(AUDIO_FILEPATH, beam_size=5)
-
-        print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+        # Transcribes the audio in segments
+        segments, info = self.model.transcribe(AUDIO_FILEPATH, beam_size=BEAM_SIZE)
 
         # Join each word together
         transcribed_audio = ""
