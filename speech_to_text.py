@@ -33,6 +33,7 @@ class SpeechTranscription:
         # Join each word together
         transcribed_audio = ""
         for segment in segments:
-            transcribed_audio.join(segment.text)
+            transcribed_audio += (segment.text)
 
+        print(f"Case Manager: {transcribed_audio}")
         return transcribed_audio

@@ -22,19 +22,19 @@ class ResponseAnalysis:
         # Conversation context - user response to conversation history
         self.history.append({"role": "user", "content": user_input})
 
-        start_time = time.time()
         response: ChatResponse = chat(
             model=self.model,
             messages=self.history,
             think=False,
-            options={"num_predict": MAX_TOKENS}
+            options={"num_predict": MAX_TOKENS},
+            keep_alive="10m"
         )
         end_time = time.time()
-        print(f"Prompt Time: {(end_time - start_time)}")
 
         ai_response = response.message.content or ""
 
+        # Update the conversation history
         self.history.append({"role": "assistant", "content": ai_response})
 
+        print(f"AI Caller: {ai_response}")
         return ai_response
-        
