@@ -1,31 +1,45 @@
 import torch
 import soundfile as sf
+import winsound
 from qwen_tts import Qwen3TTSModel
 
-def generate_audio(voice_line: str):
+# Voice cloning audio reference
+REF_AUDIO = "./voice_references/New_Zealand_Accent_Slang_onevoice.wav"
 
-    if not isinstance(voice_line, str):
-        raise Exception("TTS only takes string as input")
+# Text that matches what the audio says - must be word for word
+REF_TEXT = "I think we talk alright eh, I think their slow, ehahahaha, rather than we talk to fast, I think they think to slow"
 
-    model = Qwen3TTSModel.from_pretrained(
-            "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
-        device_map="cuda:0",
-        dtype=torch.bfloat16,
-        # attn_implementation="flash_attention_2",
-        attn_implementation="sdpa",
-    )
+# Location of generated audio wave file 
+OUTPUT_FILE = "output_voice_clone.wav"
 
-    # TODO: Improve the voice - Temp voice cloning video - will aim to improve in future
-    # Added the path for .wav audio files here - this is the reference audio that will be used for voice cloning
-    ref_audio = "./audio-tests/New_Zealand_Accent_Slang_onevoice.wav"
-    # Here you have to write out word for word what is said in the audio file
-    ref_text  = "I think we talk alright eh, I think their slow, ehahahaha, rather than we talk to fast, I think they think to slow"
+class SpeechOutput:
+    def __init__(self, model_name):
+        self.model = Qwen3TTSModel.from_pretrained(
+            model_name,
+            device_map="cuda:0",
+            dtype=torch.bfloat16,
+            # attn_implementation="flash_attention_2", - Not compatible with GTX GPUs
+            attn_implementation="sdpa",
+        )
 
-    wavs, sr = model.generate_voice_clone(
-        # This is the output text that you want to be spoken in the cloned voice, you can change this to whatever you want
-        text=voice_line,
-        language="English",
-        ref_audio=ref_audio,
-        ref_text=ref_text,
-    )
-    sf.write("output_voice_clone.wav", wavs[0], sr)
+        self.cloned_voice = self.model.create_voice_clone_prompt(
+            ref_audio=REF_AUDIO,
+            ref_text=REF_TEXT,
+            x_vector_only_mode=False,
+        )
+
+    def generate_audio(self, voice_line: str):
+        # TODO: Improve the voice - Temp voice cloning video - will aim to improve in future
+
+        wavs, sr = self.model.generate_voice_clone(
+            # This is the output text that you want to be spoken in the cloned voice, you can change this to whatever you want
+            text=voice_line,
+            language="English",
+            voice_clone_prompt=self.cloned_voice,
+        )
+
+        # Writes the audio to file
+        sf.write(OUTPUT_FILE, wavs[0], sr)
+
+        # Plays audio back to user
+        winsound.PlaySound(OUTPUT_FILE, winsound.SND_FILENAME)

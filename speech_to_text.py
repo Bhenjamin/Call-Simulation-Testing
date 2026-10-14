@@ -1,14 +1,13 @@
 import speech_recognition as sr
 from faster_whisper import WhisperModel
 
-MODEL_SIZE = "large-v3"
 AUDIO_FILEPATH = "./user_audio/audio_input.wav" 
 
 class SpeechTranscription:
 
-    def __init__(self):
+    def __init__ (self, model_name: str):
         # Run on GPU with FP16
-        self.model = WhisperModel(MODEL_SIZE, device="cuda", compute_type="float16")
+        self.model = WhisperModel(model_name, device="cuda", compute_type="float16")
         # Class that detects and records audio
         self.recogniser = sr.Recognizer()
 
