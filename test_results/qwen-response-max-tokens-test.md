@@ -21,3 +21,10 @@ Hi, I’m Priya. I’d like to check the status of my ADR case. I applied throug
 ***
 
 #### **Test Three: 25 max tokens**
+Enter your response: Hi how can I help
+
+Hello, thank you for helping. My name is Priya, and I’m calling about my ACC application. I applied for
+
+**Response Time:** 109.21254110336304
+
+***
