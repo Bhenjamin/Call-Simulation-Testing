@@ -1,5 +1,4 @@
 import torch
-import time
 import soundfile as sf
 import winsound
 from qwen_tts import Qwen3TTSModel
@@ -32,47 +31,17 @@ class SpeechOutput:
         )
 
     def generate_audio(self, voice_line: str):
-        start = time.perf_counter()
+        # TODO: Improve the voice - Temp voice cloning video - will aim to improve in future
 
-        # Generate speech
         wavs, sr = self.model.generate_voice_clone(
+            # This is the output text that you want to be spoken in the cloned voice, you can change this to whatever you want
             text=voice_line,
             language="English",
             voice_clone_prompt=self.cloned_voice,
         )
 
-        if torch.cuda.is_available():
-            torch.cuda.synchronize()
-
-        generated = time.perf_counter()
-        print(f"TTS generation: {generated - start:.2f} seconds")
-
-        # Save audio
+        # Writes the audio to file
         sf.write(OUTPUT_FILE, wavs[0], sr)
 
-        written = time.perf_counter()
-        print(f"File writing: {written - generated:.2f} seconds")
-
-        # Play audio
+        # Plays audio back to user
         winsound.PlaySound(OUTPUT_FILE, winsound.SND_FILENAME)
-
-        played = time.perf_counter()
-        print(f"Playback: {played - written:.2f} seconds")
-        print(f"Total TTS time: {played - start:.2f} seconds")
-
-
-    # def generate_audio(self, voice_line: str):
-    #     # TODO: Improve the voice - Temp voice cloning video - will aim to improve in future
-
-    #     wavs, sr = self.model.generate_voice_clone(
-    #         # This is the output text that you want to be spoken in the cloned voice, you can change this to whatever you want
-    #         text=voice_line,
-    #         language="English",
-    #         voice_clone_prompt=self.cloned_voice,
-    #     )
-
-    #     # Writes the audio to file
-    #     sf.write(OUTPUT_FILE, wavs[0], sr)
-
-    #     # Plays audio back to user
-    #     winsound.PlaySound(OUTPUT_FILE, winsound.SND_FILENAME)
