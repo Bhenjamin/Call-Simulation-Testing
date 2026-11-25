@@ -17,6 +17,17 @@ TTS_MODEL = "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
 def main():
     print("Main starts")
 
+
+    print("+============================+")
+    print("| ADR CALLER SIMULATION DEMO |")
+    print("+============================+")
+    print("(1) Priya")
+    print("(2) Grace")
+    print("(3) Marcus")
+    voice_option = input("Please select a voice option: 1, 2 or 3\n")
+
+
+
     start_time = time.time()
     
     # Intialises the reponse analysis model
@@ -24,7 +35,7 @@ def main():
     print("Analysis Model is loaded")
 
     # Initialises TTS model
-    speech_recognition_model = SpeechTranscription(STT_MODEL)
+    speech_recognition_model = SpeechTranscription(STT_MODEL, voice_option)
     print("Speech Recognition Model is loaded")
 
     # Intialises STT model

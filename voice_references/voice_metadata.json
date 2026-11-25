@@ -1,0 +1,81 @@
+{
+  "priya_angry": {
+    "filepath": "voice_references/caller_voices/dew_priya_angry.wav",
+    "voice_credit": "dew"
+  },
+
+  "priya_happy": {
+    "filepath": "voice_references/caller_voices/dew_priya_happy.wav",
+    "voice_credit": "dew"
+  },
+
+  "priya_neutral": {
+    "filepath": "voice_references/caller_voices/dew_priya_neutral.wav",
+    "voice_credit": "dew"
+  },
+
+  "priya_sad": {
+    "filepath": "voice_references/caller_voices/dew_priya_sad.wav",
+    "voice_credit": "dew"
+  },
+
+  "grace_angry": {
+    "filepath": "voice_references/caller_voices/jacqueline_grace_angry.wav",
+    "voice_credit": "jacqueline"
+  },
+
+  "grace_happy": {
+    "filepath": "voice_references/caller_voices/jacqueline_grace_happy.wav",
+    "voice_credit": "jacqueline"
+  },
+
+  "grace_neutral": {
+    "filepath": "voice_references/caller_voices/jacqueline_grace_neutral.wav",
+    "voice_credit": "jacqueline"
+  },
+
+  "grace_sad": {
+    "filepath": "voice_references/caller_voices/jacqueline_grace_sad.wav",
+    "voice_credit": "jacqueline"
+  },
+
+  "marcus_angry": {
+    "filepath": "voice_references/caller_voices/joshua_marcus_angry.wav",
+    "voice_credit": "joshua"
+  },
+
+  "marcus_happy": {
+    "filepath": "voice_references/caller_voices/joshua_marcus_happy.wav",
+    "voice_credit": "joshua"
+  },
+
+  "marcus_neutral": {
+    "filepath": "voice_references/caller_voices/joshua_marcus_neutral.wav",
+    "voice_credit": "joshua"
+  },
+
+  "marcus_sad": {
+    "filepath": "voice_references/caller_voices/joshua_marcus_sad.wav",
+    "voice_credit": "joshua"
+  },
+
+  "hannah_angry": {
+    "filepath": "voice_references/caller_voices/lydia_hannah_angry.wav",
+    "voice_credit": "lydia"
+  },
+
+  "hannah_happy": {
+    "filepath": "voice_references/caller_voices/lydia_hannah_happy.wav",
+    "voice_credit": "lydia"
+  },
+
+  "hannah_neutral": {
+    "filepath": "voice_references/caller_voices/lydia_hannah_neutral.wav",
+    "voice_credit": "lydia"
+  },
+
+  "hannah_sad": {
+    "filepath": "voice_references/caller_voices/lydia_hannah_sad.wav",
+    "voice_credit": "lydia"
+  },
+}

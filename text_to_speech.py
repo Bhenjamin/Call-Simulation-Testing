@@ -5,7 +5,7 @@ from qwen_tts import Qwen3TTSModel
 
 # Voice cloning audio reference
 # REF_AUDIO = "./voice_references/New_Zealand_Accent_Slang_onevoice.wav"
-REF_AUDIO = "./voice_references/test1.wav"
+REF_AUDIO = "./voice_references/"
 
 # Text that matches what the audio says - must be word for word
 # REF_TEXT = "I think we talk alright eh, I think their slow, ehahahaha, rather than we talk to fast, I think they think to slow"
@@ -15,7 +15,7 @@ REF_TEXT = "Hello my name is Benjamin this is a test for voice cloning, hopefull
 OUTPUT_FILE = "./caller_audio_output/output_voice_clone.wav"
 
 class SpeechOutput:
-    def __init__(self, model_name):
+    def __init__(self, model_name, voice_option):
         self.model = Qwen3TTSModel.from_pretrained(
             model_name,
             device_map="cuda:0",
@@ -24,20 +24,47 @@ class SpeechOutput:
             attn_implementation="sdpa",
         )
 
-        self.cloned_voice = self.model.create_voice_clone_prompt(
-            ref_audio=REF_AUDIO,
+        self.neutral_voice = self.model.create_voice_clone_prompt(
+            ref_audio=REF_AUDIO+"neutral"+voice_option+".wav",
             ref_text=REF_TEXT,
             x_vector_only_mode=False,
         )
 
-    def generate_audio(self, voice_line: str):
+        self.happy_voice= self.model.create_voice_clone_prompt(
+            ref_audio=REF_AUDIO+"happy"+voice_option+".wav",
+            ref_text=REF_TEXT,
+            x_vector_only_mode=False,
+        )
+
+        self.angry_voice = self.model.create_voice_clone_prompt(
+            ref_audio=REF_AUDIO+"angry"+voice_option+".wav",
+            ref_text=REF_TEXT,
+            x_vector_only_mode=False,
+        )
+
+        self.sad_voice= self.model.create_voice_clone_prompt(
+            ref_audio=REF_AUDIO+"sad"+voice_option".wav",
+            ref_text=REF_TEXT,
+            x_vector_only_mode=False,
+        )
+
+    def generate_audio(self, voice_line: str, voice_emotion: str):
         # TODO: Improve the voice - Temp voice cloning video - will aim to improve in future
 
         wavs, sr = self.model.generate_voice_clone(
             # This is the output text that you want to be spoken in the cloned voice, you can change this to whatever you want
             text=voice_line,
             language="English",
-            voice_clone_prompt=self.cloned_voice,
+
+            voice = ""
+
+            with open("voice_references/voice_metadata.json", "r", encoding="utf-8" as file):
+                voice_data = json.load(file)
+
+            if(voice == "")
+               raise ValueError("No emotion was selected for the caller's voiceline") 
+
+            voice_clone_prompt=voice_data[self.voice_option +"_"+self.voice_emotion],
         )
 
         # Writes the audio to file
