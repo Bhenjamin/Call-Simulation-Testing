@@ -1,6 +1,7 @@
 import torch
 import soundfile as sf
 import winsound
+import json
 from qwen_tts import Qwen3TTSModel
 
 # Voice cloning audio reference
@@ -20,51 +21,77 @@ class SpeechOutput:
             model_name,
             device_map="cuda:0",
             dtype=torch.float32,
-            # attn_implementation="flash_attention_2", - Not compatible with GTX GPUs
+            # attn_implementation="flash_attention_2", - Not compatible with GTX GPUs - test again later
             attn_implementation="sdpa",
         )
 
-        self.neutral_voice = self.model.create_voice_clone_prompt(
-            ref_audio=REF_AUDIO+"neutral"+voice_option+".wav",
-            ref_text=REF_TEXT,
+        # Voice data from JSON file
+        with open("voice_references/voice_metadata.json", "r", encoding="utf-8") as file:
+            self.voice_data = json.load(file)
+
+        if(self.voice_data.isNull()):
+            raise ValueError("No emotion was selected for the caller's voiceline") 
+
+
+        match self.voice_option:
+            case 1:
+                self.voice_option = "priya"
+            case 2:
+                self.voice_option = "grace"
+            case 3:
+                self.voice_option = "marcus"
+            case 4:
+                self.voice_option = "hannah"
+
+        # Preloads all the voices different emotional tones
+        self.angry_voice = self.model.create_voice_clone_prompt(
+            ref_audio=self.voice_data[self.voice_option+"_angry"]["filepath"]
+            ref_text=self.voice_data[self.voice_option+"_angry"]["voice_line"],
             x_vector_only_mode=False,
         )
 
         self.happy_voice= self.model.create_voice_clone_prompt(
-            ref_audio=REF_AUDIO+"happy"+voice_option+".wav",
-            ref_text=REF_TEXT,
+            ref_audio=self.voice_data[self.voice_option+"_happy"]["filepath"]
+            ref_text=self.voice_data[self.voice_option+"_happy"]["voice_line"],
             x_vector_only_mode=False,
         )
 
-        self.angry_voice = self.model.create_voice_clone_prompt(
-            ref_audio=REF_AUDIO+"angry"+voice_option+".wav",
-            ref_text=REF_TEXT,
+        self.neutral_voice = self.model.create_voice_clone_prompt(
+            ref_audio=self.voice_data[self.voice_option+"_neutral"]["filepath"]
+            ref_text=self.voice_data[self.voice_option+"_neutral"]["voice_line"],
             x_vector_only_mode=False,
         )
 
         self.sad_voice= self.model.create_voice_clone_prompt(
-            ref_audio=REF_AUDIO+"sad"+voice_option".wav",
-            ref_text=REF_TEXT,
+            ref_audio=self.voice_data[self.voice_option+"_sad"]["filepath"]
+            ref_text=self.voice_data[self.voice_option+"_sad"]["voice_line"],
             x_vector_only_mode=False,
         )
 
     def generate_audio(self, voice_line: str, voice_emotion: str):
         # TODO: Improve the voice - Temp voice cloning video - will aim to improve in future
 
+        current_voice = ""
+        match voice_emotion:
+            case "a":
+                current_voice = self.angry_voice
+            case "h":
+                current_voice = self.happy_voice
+            case "n":
+                current_voice = self.neutral_voice
+            case "s":
+                current_voice = self.sad_voice
+
+        if(current_voice == ""):
+            raise ValueError("Voice was not selected, when trying to generate audio")
+
         wavs, sr = self.model.generate_voice_clone(
-            # This is the output text that you want to be spoken in the cloned voice, you can change this to whatever you want
+            # What the AI will be saying
             text=voice_line,
+
             language="English",
-
-            voice = ""
-
-            with open("voice_references/voice_metadata.json", "r", encoding="utf-8" as file):
-                voice_data = json.load(file)
-
-            if(voice == "")
-               raise ValueError("No emotion was selected for the caller's voiceline") 
-
-            voice_clone_prompt=voice_data[self.voice_option +"_"+self.voice_emotion],
+            # Selected voice to use and emotion
+            voice_clone_prompt=current_voice
         )
 
         # Writes the audio to file
