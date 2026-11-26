@@ -1,81 +1,97 @@
 {
   "priya_angry": {
     "filepath": "voice_references/caller_voices/dew_priya_angry.wav",
+    "voice_line": "I've been waiting weeks for someone to get back to me. I just want to know what's going on",
     "voice_credit": "dew"
   },
 
   "priya_happy": {
     "filepath": "voice_references/caller_voices/dew_priya_happy.wav",
+    "voice_line": "Oh, that's awesome, thanks heaps for helping me get that sorted. I really appreciate it.",
     "voice_credit": "dew"
   },
 
   "priya_neutral": {
     "filepath": "voice_references/caller_voices/dew_priya_neutral.wav",
+    "voice_line": "Hi, it's Priya. Just wondering where things are at with my application, and if you need anything else from me.",
     "voice_credit": "dew"
   },
 
   "priya_sad": {
     "filepath": "voice_references/caller_voices/dew_priya_sad.wav",
+    "voice_line": "I've been waiting for weeks, and it's getting pretty hard. I just wish someone could tell me what's happening.",
     "voice_credit": "dew"
   },
 
   "grace_angry": {
     "filepath": "voice_references/caller_voices/jacqueline_grace_angry.wav",
+    "voice_line": "Honestly, this is getting really frustrating. I've tried calling a few times now, and I'm still no further ahead.",
     "voice_credit": "jacqueline"
   },
 
   "grace_happy": {
     "filepath": "voice_references/caller_voices/jacqueline_grace_happy.wav",
+    "voice_line": "Hi, it's Grace. I've just heard my review's gone through. That's such a relief, thank you!",
     "voice_credit": "jacqueline"
   },
 
   "grace_neutral": {
     "filepath": "voice_references/caller_voices/jacqueline_grace_neutral.wav",
+    "voice_line": "Hi, it's Grace Just wondering where things are at with my application, and if you need anything else from me.",
     "voice_credit": "jacqueline"
   },
 
   "grace_sad": {
     "filepath": "voice_references/caller_voices/jacqueline_grace_sad.wav",
+    "voice_line": "Hi, it's Grace. My claim's been declined again, and honestly, I'm not really sure what to do now",
     "voice_credit": "jacqueline"
   },
 
   "marcus_angry": {
     "filepath": "voice_references/caller_voices/joshua_marcus_angry.wav",
+    "voice_line": "Honestly, this is getting really frustrating. I've tried calling a few times now, and I'm still no further ahead.",
     "voice_credit": "joshua"
   },
 
   "marcus_happy": {
     "filepath": "voice_references/caller_voices/joshua_marcus_happy.wav",
+    "voice_line": "Oh, that's awesome, thanks heaps for helping me get that sorted. I really appreciate it.",
     "voice_credit": "joshua"
   },
 
   "marcus_neutral": {
     "filepath": "voice_references/caller_voices/joshua_marcus_neutral.wav",
+    "voice_line": "Hi, it's Marcus. I'm just calling to see if there's been any update on my case.",
     "voice_credit": "joshua"
   },
 
   "marcus_sad": {
     "filepath": "voice_references/caller_voices/joshua_marcus_sad.wav",
+    "voice_line": "Hi, it's Marcus. My claim's been declined again, and honestly, I'm not really sure what to do now.",
     "voice_credit": "joshua"
   },
 
   "hannah_angry": {
     "filepath": "voice_references/caller_voices/lydia_hannah_angry.wav",
+    "voice_line": "I've been waiting weeks for someone to get back to me. I just want to know what's going on",
     "voice_credit": "lydia"
   },
 
   "hannah_happy": {
     "filepath": "voice_references/caller_voices/lydia_hannah_happy.wav",
+    "voice_line": "Oh, that's awesome, thanks heaps for helping me get that sorted. I really appreciate it.",
     "voice_credit": "lydia"
   },
 
   "hannah_neutral": {
     "filepath": "voice_references/caller_voices/lydia_hannah_neutral.wav",
+    "voice_line": "Hi, it's Hannah. Just wondering where things are at with my application, and if you need anything else from me.",
     "voice_credit": "lydia"
   },
 
   "hannah_sad": {
     "filepath": "voice_references/caller_voices/lydia_hannah_sad.wav",
+    "voice_line": "I've been waiting for weeks, and it's getting pretty hard. I just wish someone could tell me what's happening.",
     "voice_credit": "lydia"
-  },
+  }
 }
