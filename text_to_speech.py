@@ -29,11 +29,12 @@ class SpeechOutput:
         with open("voice_references/voice_metadata.json", "r", encoding="utf-8") as file:
             self.voice_data = json.load(file)
 
-        if(self.voice_data.isNull()):
+
+        # Chosen voice currently based on cmd line input
+        if(voice_option is None):
             raise ValueError("No emotion was selected for the caller's voiceline") 
 
-
-        match self.voice_option:
+        match voice_option:
             case 1:
                 self.voice_option = "priya"
             case 2:
@@ -43,29 +44,31 @@ class SpeechOutput:
             case 4:
                 self.voice_option = "hannah"
 
+        print(self.voice_option)
+
         # Preloads all the voices different emotional tones
         self.angry_voice = self.model.create_voice_clone_prompt(
-            ref_audio=self.voice_data[self.voice_option+"_angry"]["filepath"]
+            ref_audio=self.voice_data[self.voice_option+"_angry"]["filepath"],
             ref_text=self.voice_data[self.voice_option+"_angry"]["voice_line"],
-            x_vector_only_mode=False,
+            x_vector_only_mode=False
         )
 
         self.happy_voice= self.model.create_voice_clone_prompt(
-            ref_audio=self.voice_data[self.voice_option+"_happy"]["filepath"]
+            ref_audio=self.voice_data[self.voice_option+"_happy"]["filepath"],
             ref_text=self.voice_data[self.voice_option+"_happy"]["voice_line"],
-            x_vector_only_mode=False,
+            x_vector_only_mode=False
         )
 
         self.neutral_voice = self.model.create_voice_clone_prompt(
-            ref_audio=self.voice_data[self.voice_option+"_neutral"]["filepath"]
+            ref_audio=self.voice_data[self.voice_option+"_neutral"]["filepath"],
             ref_text=self.voice_data[self.voice_option+"_neutral"]["voice_line"],
-            x_vector_only_mode=False,
+            x_vector_only_mode=False
         )
 
         self.sad_voice= self.model.create_voice_clone_prompt(
-            ref_audio=self.voice_data[self.voice_option+"_sad"]["filepath"]
+            ref_audio=self.voice_data[self.voice_option+"_sad"]["filepath"],
             ref_text=self.voice_data[self.voice_option+"_sad"]["voice_line"],
-            x_vector_only_mode=False,
+            x_vector_only_mode=False
         )
 
     def generate_audio(self, voice_line: str, voice_emotion: str):

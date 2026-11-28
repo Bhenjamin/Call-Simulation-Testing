@@ -17,14 +17,15 @@ TTS_MODEL = "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
 def main():
     print("Main starts")
 
-
+    persona = ""
     print("+============================+")
     print("| ADR CALLER SIMULATION DEMO |")
     print("+============================+")
     print("(1) Priya")
     print("(2) Grace")
     print("(3) Marcus")
-    voice_option = input("Please select a voice option: 1, 2 or 3\n")
+    print("(4) Hannah")
+    persona = int(input("Please select a voice option: 1, 2, 3 or 4\n"))
 
 
 
@@ -35,11 +36,11 @@ def main():
     print("Analysis Model is loaded")
 
     # Initialises TTS model
-    speech_recognition_model = SpeechTranscription(STT_MODEL, voice_option)
+    speech_recognition_model = SpeechTranscription(STT_MODEL)
     print("Speech Recognition Model is loaded")
 
     # Intialises STT model
-    speech_model = SpeechOutput(TTS_MODEL)
+    speech_model = SpeechOutput(TTS_MODEL, persona)
     print("Speech Model is loaded")
 
     end_time = time.time()
@@ -63,10 +64,9 @@ def main():
 
         # Generate and output the caller's reponse as audio 
         start_time = time.time()
-        speech_model.generate_audio(ai_response)
+        speech_model.generate_audio(ai_response, "n")
         end_time = time.time()
         print(f"Audio Generation Time: {end_time - start_time}")
 
 if __name__ == "__main__":
-    main()
-    
+    main() 

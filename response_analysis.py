@@ -15,11 +15,21 @@ class ResponseAnalysis:
         # Add the initial system prompt (persona of the caller)
         # History stores the entire conversation for the AI to review each time
         # a new message is generated 
+
         self.history = [{"role": "system", "content": self.system_instructions}]
+
+    # Classifies each AI response with an output
+    @staticmethod
+    def createResponse(role: str, content: str, emotion: str)->dict:
+        return {
+            "role": role, 
+            "content": content,
+            "emotion": emotion
+        }
 
     def generate_response(self, user_input)->str:
 
-        # Conversation context - user response to conversation history
+        # Conversation context - Add the users' response to conversation history
         self.history.append({"role": "user", "content": user_input})
 
         response: ChatResponse = chat(
@@ -29,12 +39,14 @@ class ResponseAnalysis:
             options={"num_predict": MAX_TOKENS},
             keep_alive="10m"
         )
-        end_time = time.time()
 
         ai_response = response.message.content or ""
 
+        print("LOOKS HERE!!!!!!!!!!!!!!!!!\n"+ai_response)
+
         # Update the conversation history
         self.history.append({"role": "assistant", "content": ai_response})
+        self.history.append(self.createResponse("assistant", ai_response, "n"))
 
         print(f"AI Caller: {ai_response}")
         return ai_response
